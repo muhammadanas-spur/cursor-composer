@@ -1,24 +1,24 @@
-using backendservices.Models;
 using Microsoft.AspNetCore.Mvc;
+using workhelpers.Models;
 
 namespace backendservices.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TaskController : ControllerBase
+    public class WorkItemController : ControllerBase
     {
-        private static List<backendservices.Models.Task> tasks = new List<backendservices.Models.Task>();
+        private static List<WorkItem> workItemsList = new List<WorkItem>();
 
         [HttpGet]
-        public ActionResult<IEnumerable<backendservices.Models.Task>> GetTasks()
+        public ActionResult<IEnumerable<WorkItem>> GetTasks()
         {
-            return Ok(tasks);
+            return Ok(workItemsList);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<backendservices.Models.Task> GetTask(int id)
+        public ActionResult<WorkItem> GetTask(int id)
         {
-            var task = tasks.FirstOrDefault(t => t.Id == id);
+            var task = workItemsList.FirstOrDefault(t => t.Id == id);
             if (task == null)
             {
                 return NotFound();
@@ -27,17 +27,17 @@ namespace backendservices.Controllers
         }
 
         [HttpPost]
-        public ActionResult<backendservices.Models.Task> CreateTask(backendservices.Models.Task task)
+        public ActionResult<WorkItem> CreateTask(WorkItem task)
         {
-            task.Id = tasks.Count > 0 ? tasks.Max(t => t.Id) + 1 : 1;
-            tasks.Add(task);
+            task.Id = workItemsList.Count > 0 ? workItemsList.Max(t => t.Id) + 1 : 1;
+            workItemsList.Add(task);
             return CreatedAtAction(nameof(GetTask), new { id = task.Id }, task);
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateTask(int id, backendservices.Models.Task updatedTask)
+        public ActionResult UpdateTask(int id, WorkItem updatedTask)
         {
-            var task = tasks.FirstOrDefault(t => t.Id == id);
+            var task = workItemsList.FirstOrDefault(t => t.Id == id);
             if (task == null)
             {
                 return NotFound();
@@ -50,12 +50,12 @@ namespace backendservices.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteTask(int id)
         {
-            var task = tasks.FirstOrDefault(t => t.Id == id);
+            var task = workItemsList.FirstOrDefault(t => t.Id == id);
             if (task == null)
             {
                 return NotFound();
             }
-            tasks.Remove(task);
+            workItemsList.Remove(task);
             return NoContent();
         }
     }

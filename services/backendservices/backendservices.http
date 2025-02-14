@@ -4,3 +4,36 @@ GET {{backendservices_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{backendservices_HostAddress}}/api/workitem
+Accept: application/json
+
+###
+
+GET {{backendservices_HostAddress}}/api/workitem/1
+Accept: application/json
+
+###
+
+POST {{backendservices_HostAddress}}/api/workitem
+Content-Type: application/json
+
+{
+  "title": "New Task 3",
+  "completed": false
+}
+
+###
+
+PUT {{backendservices_HostAddress}}/api/workitem/1
+Content-Type: application/json
+
+{
+  "title": "Updated Task",
+  "completed": true
+}
+
+###
+
+DELETE {{backendservices_HostAddress}}/api/workitem/1
+Accept: application/json

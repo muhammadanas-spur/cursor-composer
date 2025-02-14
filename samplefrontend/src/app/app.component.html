@@ -4,9 +4,9 @@
   </h1>
 
   <div class="card">
-    <form (submit)="addTask()">
+    <form (submit)="addWorkItem()">
       <div class="form-group">
-        <input type="text" class="form-control" [(ngModel)]="newTaskTitle" name="newTaskTitle"
+        <input type="text" class="form-control" [(ngModel)]="newWorkItemTitle" name="newTaskTitle"
           placeholder="Add a new task..." required />
       </div>
       <button type="submit" class="btn btn-primary">Add Task</button>
@@ -14,21 +14,21 @@
   </div>
 
   <div class="task-list">
-    <div *ngFor="let task of tasks;" class="task-item">
+    <div *ngFor="let item of workItemList;" class="task-item">
       <div>
-        <input type="checkbox" [checked]="task.completed" (change)="toggleTask(task)" style="margin-right: 0.5rem" />
-        <span [class.completed]="task.completed">{{ task.title }}</span>
+        <input type="checkbox" [checked]="item.completed" (change)="toggleWorkItem(item)" style="margin-right: 0.5rem" />
+        <span [class.completed]="item.completed">{{ item.title }}</span>
       </div>
       <div class="task-actions">
-        <button *ngIf="!task.completed" class="btn btn-primary" (click)="editTask(task)">
+        <button *ngIf="!item.completed" class="btn btn-primary" (click)="editWorkItem(item)">
           Edit
         </button>
-        <button class="btn btn-danger" (click)="deleteTask(task)">
+        <button class="btn btn-danger" (click)="deleteWorkItem(item)">
           Delete
         </button>
       </div>
     </div>
-    <div *ngIf="tasks.length === 0" class="card" style="text-align: center; color: #6b7280;">
+    <div *ngIf="workItemList.length === 0" class="card" style="text-align: center; color: #6b7280;">
       No tasks yet. Add one above!
     </div>
   </div>

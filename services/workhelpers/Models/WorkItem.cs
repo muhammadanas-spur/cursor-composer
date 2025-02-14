@@ -1,6 +1,6 @@
-namespace backendservices.Models
+namespace workhelpers.Models
 {
-    public class Task
+    public class WorkItem
     {
         public int Id { get; set; }
         public string? Title { get; set; }

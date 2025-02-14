@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "backendservices", "backendservices\backendservices.csproj", "{8CFBBAA7-3472-4D75-910A-1AB264763A11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "workhelpers", "workhelpers\workhelpers.csproj", "{FE1D3EFD-2F4E-43E0-8803-548AE304446C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,18 @@ Global
 		{8CFBBAA7-3472-4D75-910A-1AB264763A11}.Release|x64.Build.0 = Release|Any CPU
 		{8CFBBAA7-3472-4D75-910A-1AB264763A11}.Release|x86.ActiveCfg = Release|Any CPU
 		{8CFBBAA7-3472-4D75-910A-1AB264763A11}.Release|x86.Build.0 = Release|Any CPU
+		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Debug|x64.Build.0 = Debug|Any CPU
+		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Debug|x86.Build.0 = Debug|Any CPU
+		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Release|x64.ActiveCfg = Release|Any CPU
+		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Release|x64.Build.0 = Release|Any CPU
+		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Release|x86.ActiveCfg = Release|Any CPU
+		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
