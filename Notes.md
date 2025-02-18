@@ -11,4 +11,13 @@ dotnet sln add .\workhelpers\
 
 dotnet add .\backendservices\backendservices.csproj reference .\workhelpers\workhelpers.csproj
 
+dotnet add .\anotherbackendservice\anotherbackendservice.csproj reference .\workhelpers\workhelpers.csproj        
+Reference `..\workhelpers\workhelpers.csproj` added to the project.
+
+dotnet user-secrets init  
+
+dotnet user-secrets set "ConnectionStrings:Database" "Host=localhost;Port=5432;Database=sample-database;Username=sa_ss;"
+
+# Inside workhelpers
+dotnet ef database update --startup-project ..\anotherbackendservice\anotherbackendservice.csproj
 ```
