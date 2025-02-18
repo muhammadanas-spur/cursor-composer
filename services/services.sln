@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "backendservices", "backends
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "workhelpers", "workhelpers\workhelpers.csproj", "{FE1D3EFD-2F4E-43E0-8803-548AE304446C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "anotherbackendservice", "anotherbackendservice\anotherbackendservice.csproj", "{9FDDBCFF-F94E-49E7-8D94-C8748E9ADFB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Release|x64.Build.0 = Release|Any CPU
 		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Release|x86.ActiveCfg = Release|Any CPU
 		{FE1D3EFD-2F4E-43E0-8803-548AE304446C}.Release|x86.Build.0 = Release|Any CPU
+		{9FDDBCFF-F94E-49E7-8D94-C8748E9ADFB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FDDBCFF-F94E-49E7-8D94-C8748E9ADFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FDDBCFF-F94E-49E7-8D94-C8748E9ADFB3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9FDDBCFF-F94E-49E7-8D94-C8748E9ADFB3}.Debug|x64.Build.0 = Debug|Any CPU
+		{9FDDBCFF-F94E-49E7-8D94-C8748E9ADFB3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9FDDBCFF-F94E-49E7-8D94-C8748E9ADFB3}.Debug|x86.Build.0 = Debug|Any CPU
+		{9FDDBCFF-F94E-49E7-8D94-C8748E9ADFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FDDBCFF-F94E-49E7-8D94-C8748E9ADFB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FDDBCFF-F94E-49E7-8D94-C8748E9ADFB3}.Release|x64.ActiveCfg = Release|Any CPU
+		{9FDDBCFF-F94E-49E7-8D94-C8748E9ADFB3}.Release|x64.Build.0 = Release|Any CPU
+		{9FDDBCFF-F94E-49E7-8D94-C8748E9ADFB3}.Release|x86.ActiveCfg = Release|Any CPU
+		{9FDDBCFF-F94E-49E7-8D94-C8748E9ADFB3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
