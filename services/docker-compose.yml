@@ -4,3 +4,10 @@ services:
     build:
       context: .
       dockerfile: anotherbackendservice/Dockerfile
+
+  backendservices:
+    image: ${DOCKER_REGISTRY-}backendservices
+    build:
+      context: .
+      dockerfile: backendservices/Dockerfile
+
