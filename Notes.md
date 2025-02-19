@@ -23,3 +23,12 @@ dotnet ef database update --startup-project ..\anotherbackendservice\anotherback
 ```
 
 https://stenbrinke.nl/blog/configuration-and-secret-management-in-dotnet/
+
+
+Now after initializing docker in the project, we look at launchsettings.json file and describe its changes.
+
+AFter looking at launch settings let's examine the csproj file. Only one detail, of target being llinux is added there
+currently. Now we will look at the docker file. 
+
+It has the APP_UID non root user. Here is the reasoning why:
+[Andrew Lock's article](https://andrewlock.net/exploring-the-dotnet-8-preview-updates-to-docker-images-in-dotnet-8/)
