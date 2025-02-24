@@ -11,3 +11,30 @@ services:
       context: .
       dockerfile: backendservices/Dockerfile
 
+  database:
+    image: ${DOCKER_REGISTRY-}datbase
+    # container_name: database
+    build:
+      context: .
+      dockerfile: database.Dockerfile
+    environment:
+     # - POSTGRES_DB=sample-database
+     # - POSTGRES_USER=sa_ss
+     - POSTGRES_PASSWORD=mysecretpassword
+    volumes:
+     - ./container-volumes/pg_data:/var/lib/postgresql/data
+    ports:
+     - 5500:5432
+
+  cache:
+    image: redis:7.4.1-alpine
+    restart: always
+    command: redis-server
+    ports:
+     - '6379:6379'
+    volumes:
+     - redis-data-volume:/data
+
+
+volumes:
+    redis-data-volume:
