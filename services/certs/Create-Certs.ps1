@@ -61,8 +61,8 @@ $envWPassword = $envTemplate.Replace("`$Password", $Password)
 # Define a list of services and their corresponding paths
 Write-Host "Defining a list of services and their corresponding paths..."
 $services = @{
-    "backendservices" = "${PSScriptRoot}\..\services\backendservices\ContainerCerts.env"
-    "anotherbackendservice" = "${PSScriptRoot}\..\services\anotherbackendservice\ContainerCerts.env"
+    "backendservices" = "${PSScriptRoot}\..\backendservices\ContainerCerts.env"
+    "anotherbackendservice" = "${PSScriptRoot}\..\anotherbackendservice\ContainerCerts.env"
    }
 
 # Loop through each service and create the environment file

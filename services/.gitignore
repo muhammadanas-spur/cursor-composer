@@ -483,6 +483,21 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
+# Docker-related ignore patterns
+# --------------------------------------------
+
+# Ignore every ContainerCerts.env file
+**/ContainerCerts.env
 
 # Ignore files for docker
-container-volumes/
+container-storage/
+
+# Ignore every file except .cnf,.sh, .ps1 under the Certs directory
+certs/*.cer
+certs/*.csr
+certs/*.crt
+certs/*.pem
+certs/*.srl
+certs/Password.txt
+
+# --------------------------------------------
