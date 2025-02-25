@@ -10,3 +10,4 @@ Certs/*.csr
 Certs/*.crt
 Certs/*.pem
 Certs/*.srl
+*.pfx
