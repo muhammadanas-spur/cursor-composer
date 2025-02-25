@@ -13,7 +13,7 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddDbContext<WorkDbContext>(options =>
         {
-            options.UseNpgsql(builder.Configuration.GetConnectionString("Database"));
+            options.UseNpgsql(builder.Configuration.GetConnectionString("Docker-Database"));
         });
 
         builder.Services.AddCors(options =>

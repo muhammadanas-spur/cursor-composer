@@ -19,7 +19,10 @@ dotnet user-secrets init
 dotnet user-secrets set "ConnectionStrings:Database" "Host=localhost;Port=5432;Database=sample-database;Username=sa_ss;"
 
 # Inside workhelpers
+dotnet ef migrations add InitialCreate --startup-project ..\anotherbackendservice\anotherbackendservice.csproj
+
 dotnet ef database update --startup-project ..\anotherbackendservice\anotherbackendservice.csproj
+
 ```
 
 https://stenbrinke.nl/blog/configuration-and-secret-management-in-dotnet/

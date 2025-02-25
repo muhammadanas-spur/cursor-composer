@@ -13,16 +13,16 @@ services:
 
   database:
     image: ${DOCKER_REGISTRY-}datbase
-    # container_name: database
     build:
       context: .
       dockerfile: database.Dockerfile
     environment:
-     # - POSTGRES_DB=sample-database
-     # - POSTGRES_USER=sa_ss
+     # - POSTGRES_DB=sample_database
+     # - POSTGRES_USER=postgres
      - POSTGRES_PASSWORD=mysecretpassword
     volumes:
-     - ./container-volumes/pg_data:/var/lib/postgresql/data
+     - ./container-storage/pg_data:/var/lib/postgresql/data
+     # - my_new_pg_data:/var/lib/postgresql/data
     ports:
      - 5500:5432
 
@@ -33,8 +33,9 @@ services:
     ports:
      - '6379:6379'
     volumes:
-     - redis-data-volume:/data
+     - ./container-storage/redis_data:/data
 
 
-volumes:
-    redis-data-volume:
+# volumes:
+    # redis-data-volume:
+    # my_new_pg_data:

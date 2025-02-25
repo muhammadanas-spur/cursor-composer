@@ -11,7 +11,7 @@ using WorkHelpers.Context;
 namespace workhelpers.Migrations
 {
     [DbContext(typeof(WorkDbContext))]
-    [Migration("20250218074252_InitialCreate")]
+    [Migration("20250224150532_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
