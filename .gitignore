@@ -10,4 +10,8 @@ Certs/*.csr
 Certs/*.crt
 Certs/*.pem
 Certs/*.srl
+Certs/Password.txt
 *.pfx
+
+# Ignore every ContainerCerts.env file
+**/ContainerCerts.env
