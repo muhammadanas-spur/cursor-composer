@@ -1,2 +1,12 @@
 .vs/
+
+# Docker-related ignore patterns
+# --------------------------------------------
 services/container-storage/
+
+# Ignore every file except .cnf,.sh, .ps1 under the Certs directory
+Certs/*.cer
+Certs/*.csr
+Certs/*.crt
+Certs/*.pem
+Certs/*.srl
