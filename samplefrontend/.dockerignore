@@ -1,0 +1,21 @@
+# Node modules
+node_modules/
+
+# Angular build output
+dist/
+
+# IDE files
+.vscode
+.idea
+.editorconfig
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.swp
