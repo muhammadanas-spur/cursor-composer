@@ -30,7 +30,7 @@ public class Program
 
         // Configure the HTTP request pipeline.
 
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
         app.UseCors("AllowAll");
         app.UseAuthorization();
 

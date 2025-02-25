@@ -22,7 +22,7 @@ namespace backendservices.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WorkItem>>> GetTasks()
         {
-            var workItems =await _dbContext.WorkItems.ToListAsync() ;
+            var workItems = await _dbContext.WorkItems.ToListAsync();
             return Ok(workItems);
         }
 
@@ -76,13 +76,14 @@ namespace backendservices.Controllers
             using (var httpClient = new HttpClient())
             {
                 // http://localhost:5235
-                
-                var response = await httpClient.DeleteAsync($"https://localhost:7046/api/SecondService/{id}");
+
+                //var response = await httpClient.DeleteAsync($"https://localhost:7046/api/SecondService/{id}");
+                var response = await httpClient.DeleteAsync($"http://anotherbackendservice:8080/api/SecondService/{id}");
                 if (response.IsSuccessStatusCode)
                 {
-                   return Ok();
+                    return Ok();
                 }
-                else if(response.StatusCode == HttpStatusCode.NotFound)
+                else if (response.StatusCode == HttpStatusCode.NotFound)
                 {
                     return NotFound();
                 }

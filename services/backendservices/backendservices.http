@@ -24,7 +24,7 @@ PUT {{backendservices_HostAddress}}/api/workitem/1
 Content-Type: application/json
 
 {
-  "title": "Updated Task",
+  "title": "New Task 1 (Updated)",
   "completed": true
 }
 
