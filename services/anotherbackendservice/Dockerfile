@@ -7,6 +7,12 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
+FROM base AS local_dev_with_https
+USER root
+ADD certs/custom-sample-ca.crt /usr/local/share/ca-certificates/custom-sample-ca.crt
+#RUN chmod 644 /Certs/anotherbackendservice.pfx
+RUN chmod 644 /usr/local/share/ca-certificates/custom-sample-ca.crt && update-ca-certificates
+#USER $APP_UID
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build

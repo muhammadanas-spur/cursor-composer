@@ -1,6 +1,7 @@
 <Project>
   <!-- If Create-Certs has been run, use the generated certs -->
   <PropertyGroup Condition="Exists('$(MSBuildProjectDirectory)\ContainerCerts.env')">
+    <DockerfileFastModeStage>local_dev_with_https</DockerfileFastModeStage>
     <DockerfileRunEnvironmentFiles>$(MSBuildProjectDirectory)\ContainerCerts.env</DockerfileRunEnvironmentFiles>
     <DockerfileRunArguments>-v "$(SolutionDir)\..\certs:/Certs"</DockerfileRunArguments>
   </PropertyGroup>

@@ -78,7 +78,7 @@ namespace backendservices.Controllers
                 // http://localhost:5235
 
                 //var response = await httpClient.DeleteAsync($"https://localhost:7046/api/SecondService/{id}");
-                var response = await httpClient.DeleteAsync($"http://anotherbackendservice:8080/api/SecondService/{id}");
+                var response = await httpClient.DeleteAsync($"https://anotherbackendservice:8081/api/SecondService/{id}");
                 if (response.IsSuccessStatusCode)
                 {
                     return Ok();
