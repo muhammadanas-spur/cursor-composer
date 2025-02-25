@@ -29,4 +29,6 @@
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
+  <Import Project="..\ContainerCerts.props" />
+
 </Project>
