@@ -13,7 +13,11 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddDbContext<WorkDbContext>(options =>
         {
-            options.UseNpgsql(builder.Configuration.GetConnectionString("Docker-Database"));
+            //options.UseNpgsql(builder.Configuration.GetConnectionString("Docker-Database"));
+
+            //Use SQL Server
+            options.UseSqlServer(builder.Configuration.GetConnectionString("SQL_Server_Database"));
+
         });
 
         builder.Services.AddCors(options =>
