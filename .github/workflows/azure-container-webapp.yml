@@ -1,0 +1,73 @@
+name: Build and Deploy Docker Images
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  ACR_NAME: sampleregistery22347
+  RESOURCE_GROUP: sample-resource-group
+  # Production environment settings
+  ENVIRONMENT: Prod
+  ENV_TAG: prod
+  BACKEND_APP_NAME: backend-app1
+  ANOTHER_BACKEND_APP_NAME: anotherbackendservice
+  FRONTEND_APP_NAME: samplefrontend-app
+  APP_SERVICE_PLAN: ASP-sampleresourcegroup-9ca6
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    name: Build and Push for ${{ env.ENVIRONMENT }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+      
+      - name: 'Login to Azure'
+        uses: Azure/login@v2.2.0
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: 'Login to Azure Container Registry'
+        uses: Azure/cli@v2.1.0
+        with:
+          inlineScript: |
+            az acr login --name ${{ env.ACR_NAME }}
+      
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ env.ACR_NAME }}.azurecr.io/backendservices:${{ env.ENV_TAG }}-${{ github.run_number }} \
+                     -t ${{ env.ACR_NAME }}.azurecr.io/backendservices:latest-${{ env.ENV_TAG }} \
+                     --build-arg BUILD_CONFIGURATION=${{ env.ENVIRONMENT }} \
+                     -f ${{ github.workspace }}/services/backendservices/Dockerfile \
+                     ${{ github.workspace }}/services
+          
+          docker push ${{ env.ACR_NAME }}.azurecr.io/backendservices:${{ env.ENV_TAG }}-${{ github.run_number }}
+          docker push ${{ env.ACR_NAME }}.azurecr.io/backendservices:latest-${{ env.ENV_TAG }}
+
+
+  # deploy:
+  #   permissions:
+  #     contents: none
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   environment:
+  #     name: 'Development'
+  #     url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+  #   steps:
+  #     - name: Lowercase the repo name and username
+  #       run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
+  #     - name: Deploy to Azure Web App
+  #       id: deploy-to-webapp
+  #       uses: azure/webapps-deploy@v2
+  #       with:
+  #         app-name: ${{ env.AZURE_WEBAPP_NAME }}
+  #         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+  #         images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
