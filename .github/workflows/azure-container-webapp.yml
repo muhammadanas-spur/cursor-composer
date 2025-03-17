@@ -22,7 +22,7 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    name: Build and Push for ${{ env.ENVIRONMENT }}
+    name: Build and Push
     
     steps:
       - name: Checkout code
