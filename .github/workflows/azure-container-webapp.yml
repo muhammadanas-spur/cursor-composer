@@ -80,7 +80,7 @@ jobs:
               --name ${{ env.BACKEND_APP_NAME }} \
               --settings \
                 ASPNETCORE_ENVIRONMENT=${{ env.ENVIRONMENT }} \
-                WEBSITES_PORT=8080
+                WEBSITES_PORT=8080 \
                 DOCKER_REGISTRY_SERVER_URL="https://${{ env.ACR_NAME }}.azurecr.io" \
                 DOCKER_REGISTRY_SERVER_USERNAME="${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}" \
                 DOCKER_REGISTRY_SERVER_PASSWORD="${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}" \
