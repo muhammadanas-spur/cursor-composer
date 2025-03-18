@@ -80,8 +80,16 @@ jobs:
               --name ${{ env.BACKEND_APP_NAME }} \
               --settings \
                 ASPNETCORE_ENVIRONMENT=${{ env.ENVIRONMENT }} \
-                ConnectionStrings__SQL_Server_Database="${{ secrets.SQL_CONNECTION_STRING }}" \
                 WEBSITES_PORT=8080
+                DOCKER_REGISTRY_SERVER_URL="https://${{ env.ACR_NAME }}.azurecr.io" \
+                DOCKER_REGISTRY_SERVER_USERNAME="${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}" \
+                DOCKER_REGISTRY_SERVER_PASSWORD="${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}" \
+ 
+            az webapp config connection-string set \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name ${{ env.BACKEND_APP_NAME }} \
+              --settings SQL_Server_Database='${{ secrets.SQL_CONNECTION_STRING }}' \
+              --connection-string-type SQLAzure
       
       - name: 'Deploy to Azure Web App for Container'
         uses: azure/webapps-deploy@v2
