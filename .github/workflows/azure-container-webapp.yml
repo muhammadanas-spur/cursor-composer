@@ -168,4 +168,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.FRONTEND_APP_NAME }}
-          images: '${{ env.ACR_NAME }}.azurecr.io/frontend:${{ env.ENV_TAG }}-${{ github.run_number }}'
+          images: '${{ env.ACR_NAME }}.azurecr.io/samplefrontend:${{ env.ENV_TAG }}-${{ github.run_number }}'
