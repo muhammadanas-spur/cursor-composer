@@ -12,7 +12,7 @@ env:
   ACR_NAME: sampleregistery22347
   RESOURCE_GROUP: sample-resource-group
   # Production environment settings
-  ENVIRONMENT: Prod
+  ENVIRONMENT: Production
   ENV_TAG: prod
   BACKEND_APP_NAME: backend-app1
   ANOTHER_BACKEND_APP_NAME: anotherbackendservice
