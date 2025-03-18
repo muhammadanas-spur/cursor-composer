@@ -1,3 +1,4 @@
+using backendservices.Configuration;
 using Microsoft.EntityFrameworkCore;
 using WorkHelpers.Context;
 
@@ -11,6 +12,9 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllers();
+
+        builder.Services.Configure<ServiceEndpointSettings>(builder.Configuration.GetSection("ServiceEndpoints"));
+
         builder.Services.AddDbContext<WorkDbContext>(options =>
         {
             //options.UseNpgsql(builder.Configuration.GetConnectionString("Docker-Database"));

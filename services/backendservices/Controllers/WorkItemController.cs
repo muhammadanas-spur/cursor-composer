@@ -1,7 +1,9 @@
 using System.Net;
 using System.Threading.Tasks;
+using backendservices.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using workhelpers.Models;
 using WorkHelpers.Context;
 
@@ -13,10 +15,15 @@ namespace backendservices.Controllers
     {
         // private static List<WorkItem> workItemsList = new List<WorkItem>();
         private readonly WorkDbContext _dbContext;
+        private readonly ServiceEndpointSettings _serviceEndpoints;
 
-        public WorkItemController(WorkDbContext dbContext)
+        public WorkItemController(
+            WorkDbContext dbContext,
+            IOptions<ServiceEndpointSettings> serviceEndpoints
+            )
         {
             _dbContext = dbContext;
+            _serviceEndpoints = serviceEndpoints.Value;
         }
 
         [HttpGet]
@@ -78,7 +85,7 @@ namespace backendservices.Controllers
                 // http://localhost:5235
 
                 //var response = await httpClient.DeleteAsync($"https://localhost:7046/api/SecondService/{id}");
-                var response = await httpClient.DeleteAsync($"https://anotherbackendservice:8081/api/SecondService/{id}");
+                var response = await httpClient.DeleteAsync($"{_serviceEndpoints.SecondService}/api/SecondService/{id}");
                 if (response.IsSuccessStatusCode)
                 {
                     return Ok();
