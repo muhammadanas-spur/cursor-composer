@@ -73,14 +73,14 @@ jobs:
       - name: Build and push frontend
         uses: docker/build-push-action@v6
         with:
-          context: ${{ github.workspace }}/frontend
-          file: ${{ github.workspace }}/frontend/Dockerfile
+          context: ${{ github.workspace }}/samplefrontend
+          file: ${{ github.workspace }}/samplefrontend/Dockerfile
           push: true
           build-args: |
             BUILD_CONFIGURATION=${{ env.ENVIRONMENT }}
           tags: |
-            ${{ env.ACR_NAME }}.azurecr.io/frontend:${{ env.ENV_TAG }}-${{ github.run_number }}
-            ${{ env.ACR_NAME }}.azurecr.io/frontend:latest-${{ env.ENV_TAG }}
+            ${{ env.ACR_NAME }}.azurecr.io/samplefrontend:${{ env.ENV_TAG }}-${{ github.run_number }}
+            ${{ env.ACR_NAME }}.azurecr.io/samplefrontend:latest-${{ env.ENV_TAG }}
 
   deploy:
     needs: build-and-push
