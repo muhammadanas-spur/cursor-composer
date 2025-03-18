@@ -46,7 +46,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and push backend services
+      - name: Build and push primary backend services
         uses: docker/build-push-action@v6
         with:
           context: ${{ github.workspace }}/services
@@ -58,6 +58,29 @@ jobs:
             ${{ env.ACR_NAME }}.azurecr.io/backendservices:${{ env.ENV_TAG }}-${{ github.run_number }}
             ${{ env.ACR_NAME }}.azurecr.io/backendservices:latest-${{ env.ENV_TAG }}
 
+      - name: Build and push secondary backend services
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ github.workspace }}/services
+          file: ${{ github.workspace }}/services/anotherbackendservices/Dockerfile
+          push: true
+          build-args: |
+            BUILD_CONFIGURATION=${{ env.ENVIRONMENT }}
+          tags: |
+            ${{ env.ACR_NAME }}.azurecr.io/anotherbackendservices:${{ env.ENV_TAG }}-${{ github.run_number }}
+            ${{ env.ACR_NAME }}.azurecr.io/anotherbackendservices:latest-${{ env.ENV_TAG }}
+
+      - name: Build and push frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ github.workspace }}/frontend
+          file: ${{ github.workspace }}/frontend/Dockerfile
+          push: true
+          build-args: |
+            BUILD_CONFIGURATION=${{ env.ENVIRONMENT }}
+          tags: |
+            ${{ env.ACR_NAME }}.azurecr.io/frontend:${{ env.ENV_TAG }}-${{ github.run_number }}
+            ${{ env.ACR_NAME }}.azurecr.io/frontend:latest-${{ env.ENV_TAG }}
 
   deploy:
     needs: build-and-push
@@ -71,7 +94,8 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       
-      - name: 'Configure App Service Settings'
+      # Configure and deploy primary backend app
+      - name: 'Configure Primary Backend App Service Settings'
         uses: azure/CLI@v1
         with:
           inlineScript: |
@@ -91,8 +115,57 @@ jobs:
               --settings SQL_Server_Database='${{ secrets.SQL_CONNECTION_STRING }}' \
               --connection-string-type SQLAzure
       
-      - name: 'Deploy to Azure Web App for Container'
+      - name: 'Deploy Primary Backend to Azure Web App'
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.BACKEND_APP_NAME }}
           images: '${{ env.ACR_NAME }}.azurecr.io/backendservices:${{ env.ENV_TAG }}-${{ github.run_number }}'
+
+      # Configure and deploy secondary backend app
+      - name: 'Configure Secondary Backend App Service Settings'
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az webapp config appsettings set \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name ${{ env.ANOTHER_BACKEND_APP_NAME }} \
+              --settings \
+                ASPNETCORE_ENVIRONMENT=${{ env.ENVIRONMENT }} \
+                WEBSITES_PORT=8080 \
+                DOCKER_REGISTRY_SERVER_URL="https://${{ env.ACR_NAME }}.azurecr.io" \
+                DOCKER_REGISTRY_SERVER_USERNAME="${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}" \
+                DOCKER_REGISTRY_SERVER_PASSWORD="${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}" \
+ 
+            az webapp config connection-string set \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name ${{ env.ANOTHER_BACKEND_APP_NAME }} \
+              --settings SQL_Server_Database='${{ secrets.SQL_CONNECTION_STRING }}' \
+              --connection-string-type SQLAzure
+      
+      - name: 'Deploy Secondary Backend to Azure Web App'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.ANOTHER_BACKEND_APP_NAME }}
+          images: '${{ env.ACR_NAME }}.azurecr.io/anotherbackendservices:${{ env.ENV_TAG }}-${{ github.run_number }}'
+
+      # Configure and deploy frontend app
+      - name: 'Configure Frontend App Service Settings'
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az webapp config appsettings set \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name ${{ env.FRONTEND_APP_NAME }} \
+              --settings \
+                WEBSITES_PORT=80 \
+                DOCKER_REGISTRY_SERVER_URL="https://${{ env.ACR_NAME }}.azurecr.io" \
+                DOCKER_REGISTRY_SERVER_USERNAME="${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}" \
+                DOCKER_REGISTRY_SERVER_PASSWORD="${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}" \
+                API_URL="https://${{ env.BACKEND_APP_NAME }}.azurewebsites.net" \
+                ANOTHER_API_URL="https://${{ env.ANOTHER_BACKEND_APP_NAME }}.azurewebsites.net"
+      
+      - name: 'Deploy Frontend to Azure Web App'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.FRONTEND_APP_NAME }}
+          images: '${{ env.ACR_NAME }}.azurecr.io/frontend:${{ env.ENV_TAG }}-${{ github.run_number }}'
