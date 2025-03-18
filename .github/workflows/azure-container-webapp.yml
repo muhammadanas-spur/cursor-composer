@@ -46,7 +46,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and push primary backend services
+      - name: Build and push primary backend service
         uses: docker/build-push-action@v6
         with:
           context: ${{ github.workspace }}/services
@@ -58,17 +58,17 @@ jobs:
             ${{ env.ACR_NAME }}.azurecr.io/backendservices:${{ env.ENV_TAG }}-${{ github.run_number }}
             ${{ env.ACR_NAME }}.azurecr.io/backendservices:latest-${{ env.ENV_TAG }}
 
-      - name: Build and push secondary backend services
+      - name: Build and push secondary backend service
         uses: docker/build-push-action@v6
         with:
           context: ${{ github.workspace }}/services
-          file: ${{ github.workspace }}/services/anotherbackendservices/Dockerfile
+          file: ${{ github.workspace }}/services/anotherbackendservice/Dockerfile
           push: true
           build-args: |
             BUILD_CONFIGURATION=${{ env.ENVIRONMENT }}
           tags: |
-            ${{ env.ACR_NAME }}.azurecr.io/anotherbackendservices:${{ env.ENV_TAG }}-${{ github.run_number }}
-            ${{ env.ACR_NAME }}.azurecr.io/anotherbackendservices:latest-${{ env.ENV_TAG }}
+            ${{ env.ACR_NAME }}.azurecr.io/anotherbackendservice:${{ env.ENV_TAG }}-${{ github.run_number }}
+            ${{ env.ACR_NAME }}.azurecr.io/anotherbackendservice:latest-${{ env.ENV_TAG }}
 
       - name: Build and push frontend
         uses: docker/build-push-action@v6
@@ -146,7 +146,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.ANOTHER_BACKEND_APP_NAME }}
-          images: '${{ env.ACR_NAME }}.azurecr.io/anotherbackendservices:${{ env.ENV_TAG }}-${{ github.run_number }}'
+          images: '${{ env.ACR_NAME }}.azurecr.io/anotherbackendservice:${{ env.ENV_TAG }}-${{ github.run_number }}'
 
       # Configure and deploy frontend app
       - name: 'Configure Frontend App Service Settings'
