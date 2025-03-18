@@ -44,7 +44,7 @@ CMD ["npm", "run", "start-container"]
 FROM base AS build
 # Copy the rest of the application code
 COPY . .
-RUN ng build --prod
+RUN ng build --configuration production
 
 # Stage 4: Serve the app with Nginx
 FROM nginx:alpine AS production
