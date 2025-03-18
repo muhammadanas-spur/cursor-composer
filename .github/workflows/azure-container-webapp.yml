@@ -9,15 +9,15 @@ on:
       - main
 
 env:
-  ACR_NAME: sampleregistery22347
-  RESOURCE_GROUP: sample-resource-group
+  ACR_NAME: ${{ vars.ACR_NAME }}
+  RESOURCE_GROUP: ${{ vars.RESOURCE_GROUP }}
   # Production environment settings
   ENVIRONMENT: Production
   ENV_TAG: prod
-  BACKEND_APP_NAME: backend-app1
-  ANOTHER_BACKEND_APP_NAME: anotherbackendservice
-  FRONTEND_APP_NAME: samplefrontend-app
-  APP_SERVICE_PLAN: ASP-sampleresourcegroup-9ca6
+  BACKEND_APP_NAME: ${{ vars.BACKEND_APP_NAME }}
+  ANOTHER_BACKEND_APP_NAME: ${{ vars.ANOTHER_BACKEND_APP_NAME }}
+  FRONTEND_APP_NAME: ${{ vars.FRONTEND_APP_NAME }}
+  APP_SERVICE_PLAN: ${{ vars.APP_SERVICE_PLAN }}
 
 jobs:
   build-and-push:
