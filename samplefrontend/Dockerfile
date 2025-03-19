@@ -48,6 +48,6 @@ RUN ng build --configuration production
 
 # Stage 4: Serve the app with Nginx
 FROM nginx:alpine AS production
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist/samplefrontend /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
