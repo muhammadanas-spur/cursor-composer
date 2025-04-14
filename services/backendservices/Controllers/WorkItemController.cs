@@ -30,6 +30,8 @@ namespace backendservices.Controllers
         public async Task<ActionResult<IEnumerable<WorkItem>>> GetTasks()
         {
             var workItems = await _dbContext.WorkItems.ToListAsync();
+            // Print the the number of tasks 
+            Console.WriteLine($"Number of tasks: {workItems.Count}");
             return Ok(workItems);
         }
 
